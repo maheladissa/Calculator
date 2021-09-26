@@ -2,10 +2,12 @@ package com.kelaniya.uni.V5;
 
 
 import com.kelaniya.uni.V5.input.Inputs;
+import com.kelaniya.uni.V5.input.InvalidInputException;
 import com.kelaniya.uni.V5.operation.InvalidOperationException;
 import com.kelaniya.uni.V5.operation.Operation;
 import com.kelaniya.uni.V5.operation.OperationFactory;
 import com.kelaniya.uni.V5.repository.NumberRepository;
+import com.kelaniya.uni.V5.repository.NumberRepositoryException;
 import com.kelaniya.uni.V5.ui.UI;
 
 import java.io.IOException;
@@ -25,20 +27,17 @@ public class CalculatorApp {
         this.ui = ui;
     }
 
-    public void execute() throws IOException {
-
-
-        String operator = inputs.getOperator();
-        Double[] numbers = numberRepository.getNumbers();
-        Operation operation = operationFactory.getInstance(operator);
-        Double result= null;
+    public void execute() {
         try {
-            result = operation.execute(numbers);
-        } catch (InvalidOperationException e) {
+            String operator = inputs.getOperator();
+            Double[] numbers = numberRepository.getNumbers();
+            Operation operation = operationFactory.getInstance(operator);
+            Double result= operation.execute(numbers);
+            ui.showMessage("The Result is "+ result);
+        } catch (InvalidOperationException | InvalidInputException | NumberRepositoryException e) {
             ui.showMessage("Error Occurred " + e.getMessage());
-            return;
         }
-        ui.showMessage("The Result is "+ result);
+
 
     }
 

@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface NumberRepository {
 
-    Double[] getNumbers() throws IOException;
+    Double[] getNumbers() throws NumberRepositoryException;
 }

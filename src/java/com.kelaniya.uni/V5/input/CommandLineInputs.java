@@ -1,5 +1,6 @@
 package com.kelaniya.uni.V5.input;
 
+
 public class CommandLineInputs implements Inputs {
 
     private final String[] args;
@@ -8,19 +9,17 @@ public class CommandLineInputs implements Inputs {
         this.args=arguments;
     }
 
-    public String getOperator(){
+    public String getOperator() throws InvalidInputException {
         //Make sure to validate arguments
         if (args.length == 0) {
-            System.out.println("Please provide an argument");
-            return "";
+            throw new InvalidInputException("Please provide an argument");
         }
 
 
         String operator = args[0];
 
         if (!(operator.equals("add") || operator.equals("sub") || operator.equals("mul") || operator.equals("div"))) {
-            System.out.println("Please provide a valid argument");
-            return "";
+            throw new InvalidInputException("Please provide a valid argument");
 
         }
 
